@@ -84,6 +84,8 @@ function renderNotes(notesToRender = notes) {
         deleteButton.textContent = "Delete";
         deleteButton.dataset.id = note.id;
 
+        const clearAllBtn = document.getElementById("clear-all-btn");
+
         meta.appendChild(categoryLabel);
         meta.appendChild(date);
         meta.appendChild(deleteButton);
@@ -163,3 +165,10 @@ searchInput.addEventListener("input", filterNotes);
 
 loadNotes();
 renderNotes();
+clearAllBtn.addEventListener("click", () => {
+    if (confirm("Delete all notes?")) {
+        notes = [];
+        saveNotes();
+        filterNotes();
+    }
+});

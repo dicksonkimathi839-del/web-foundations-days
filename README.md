@@ -17,6 +17,7 @@ QuickNotes is a simple and responsive note-taking web application built with HTM
 - Responsive layout for mobile and desktop screens
 - Category-specific styling
 - Clean and accessible HTML structure
+- Clear all notes with confirmation
 
 ## How to Run Locally
 
