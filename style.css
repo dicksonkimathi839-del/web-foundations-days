@@ -1,0 +1,227 @@
+:root {
+    --primary-color: #2563eb;
+    --header-color: #1d4ed8;
+    --background-color: #f3f4f6;
+    --card-color: #ffffff;
+    --text-color: #1f2937;
+    --muted-color: #6b7280;
+    --border-color: #d1d5db;
+    --error-color: #dc2626;
+    --button-hover: #1e40af;
+    --personal-color: #0f766e;
+    --work-color: #991b1b;
+    --study-color: #2563eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: min(90%, 700px);
+    margin: 0 auto;
+}
+
+.app-header {
+    background-color: var(--header-color);
+    color: white;
+    padding: 35px 0;
+    text-align: center;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
+
+.app-header p {
+    margin: 8px 0 0;
+}
+
+main {
+    padding: 30px 0;
+}
+
+.card {
+    background-color: var(--card-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+form {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-group label,
+.search-group label {
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font: inherit;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: white;
+    font: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+.error-message {
+    min-height: 24px;
+    margin: 10px 0 0;
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+.search-group {
+    margin-bottom: 20px;
+}
+
+#note-count {
+    color: var(--muted-color);
+    font-weight: bold;
+}
+
+#notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.note-card {
+    margin-bottom: 15px;
+    padding: 16px;
+    background-color: #fafafa;
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--primary-color);
+    border-radius: 6px;
+}
+
+.note-card.category-personal {
+    border-left-color: var(--personal-color);
+}
+
+.note-card.category-work {
+    border-left-color: var(--work-color);
+}
+
+.note-card.category-study {
+    border-left-color: var(--study-color);
+}
+
+.note-text {
+    margin: 0 0 10px;
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+.note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.category-label {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background-color: #e5e7eb;
+}
+
+.note-date {
+    color: var(--muted-color);
+    font-size: 0.85rem;
+}
+
+.delete-btn {
+    background-color: var(--error-color);
+    padding: 7px 12px;
+    font-size: 0.9rem;
+}
+
+.delete-btn:hover {
+    background-color: #b91c1c;
+}
+
+.empty-message {
+    color: var(--muted-color);
+    font-style: italic;
+}
+
+.app-footer {
+    padding: 20px 0;
+    text-align: center;
+    color: var(--muted-color);
+}
+
+.app-footer p {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form button {
+        width: 100%;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .note-meta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
