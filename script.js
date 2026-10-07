@@ -8,8 +8,27 @@ const notesList = document.getElementById("notes-list");
 
 let notes = [];
 
+function updateCount() {
+    if (notes.length === 0) {
+        noteCount.textContent = "You have no notes yet.";
+    } else if (notes.length === 1) {
+        noteCount.textContent = "You have 1 note.";
+    } else {
+        noteCount.textContent = `You have ${notes.length} notes.`;
+    }
+}
+
 function renderNotes(notesToRender = notes) {
     notesList.innerHTML = "";
+
+    if (notesToRender.length === 0 && searchInput.value.trim() !== "") {
+        const message = document.createElement("li");
+        message.className = "empty-message";
+        message.textContent = "No notes match your search.";
+        notesList.appendChild(message);
+        updateCount();
+        return;
+    }
 
     notesToRender.forEach((note) => {
         const listItem = document.createElement("li");
@@ -49,16 +68,6 @@ function renderNotes(notesToRender = notes) {
     updateCount();
 }
 
-function updateCount() {
-    if (notes.length === 0) {
-        noteCount.textContent = "You have no notes yet.";
-    } else if (notes.length === 1) {
-        noteCount.textContent = "You have 1 note.";
-    } else {
-        noteCount.textContent = `You have ${notes.length} notes.`;
-    }
-}
-
 noteForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -87,6 +96,18 @@ noteForm.addEventListener("submit", (event) => {
 
     errorMessage.textContent = "";
     noteInput.value = "";
+
+    renderNotes();
+});
+
+notesList.addEventListener("click", (event) => {
+    if (!event.target.classList.contains("delete-btn")) {
+        return;
+    }
+
+    const noteId = event.target.dataset.id;
+
+    notes = notes.filter((note) => note.id !== noteId);
 
     renderNotes();
 });
