@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Directory</title>
+    <script src="users.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>User Directory</h1>
+        <p>Load and search users from a REST API.</p>
+    </header>
+
+    <main>
+        <section aria-labelledby="users-heading">
+            <h2 id="users-heading">Users</h2>
+
+            <button id="load-users" type="button">Load Users</button>
+
+            <div>
+                <label for="filter-input">Filter users by name:</label>
+                <input
+                    type="text"
+                    id="filter-input"
+                    placeholder="Type a name..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <p id="status" role="status">Click "Load Users" to begin.</p>
+
+            <ul id="users-list"></ul>
+        </section>
+    </main>
+</body>
+</html>
