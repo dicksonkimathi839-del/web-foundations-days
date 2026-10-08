@@ -1,47 +1,76 @@
+const API_URL = "https://jsonplaceholder.typicode.com/users";
+
 const loadUsersButton = document.getElementById("load-users");
 const filterInput = document.getElementById("filter-input");
 const status = document.getElementById("status");
 const usersList = document.getElementById("users-list");
 
-const API_URL = "https://jsonplaceholder.typicode.com/users";
 let users = [];
+let usersLoaded = false;
 
+
+/**
+ * Loads users from the REST API.
+ */
 async function loadUsers() {
     loadUsersButton.disabled = true;
+    filterInput.disabled = true;
+
     status.textContent = "Loading users...";
+    usersList.replaceChildren();
 
     try {
         const response = await fetch(API_URL);
 
         if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
+            throw new Error(
+                `Request failed with status ${response.status}`
+            );
         }
 
-        users = await response.json();
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("Invalid user data received from the API.");
+        }
+
+        users = data;
+        usersLoaded = true;
+
+        filterInput.disabled = false;
 
         renderUsers(users);
 
-        status.textContent = `Successfully loaded ${users.length} users.`;
+        status.textContent =
+            `Successfully loaded ${users.length} users.`;
+
     } catch (error) {
         users = [];
-        usersList.innerHTML = "";
+        usersLoaded = false;
+
+        filterInput.value = "";
+        filterInput.disabled = true;
+
+        usersList.replaceChildren();
+
         status.textContent =
             "Unable to load users. Please try again later.";
+
+        console.error("Error loading users:", error);
+
     } finally {
         loadUsersButton.disabled = false;
     }
 }
 
+
+/**
+ * Renders any supplied array of users.
+ *
+ * @param {Array} list - Array of users to display.
+ */
 function renderUsers(list) {
-    usersList.innerHTML = "";
-
-    if (list.length === 0) {
-        if (filterInput.value.trim() !== "") {
-            status.textContent = "No users match your filter.";
-        }
-
-        return;
-    }
+    usersList.replaceChildren();
 
     list.forEach((user) => {
         const listItem = document.createElement("li");
@@ -67,7 +96,15 @@ function renderUsers(list) {
     });
 }
 
-filterInput.addEventListener("input", () => {
+
+/**
+ * Filters the already-loaded users by name.
+ */
+function filterUsers() {
+    if (!usersLoaded) {
+        return;
+    }
+
     const searchText = filterInput.value.trim().toLowerCase();
 
     const filteredUsers = users.filter((user) =>
@@ -76,14 +113,31 @@ filterInput.addEventListener("input", () => {
 
     renderUsers(filteredUsers);
 
-    if (filteredUsers.length > 0) {
+    if (searchText === "") {
         status.textContent =
-            `Showing ${filteredUsers.length} user${filteredUsers.length === 1 ? "" : "s"}.`;
-    } else if (searchText !== "") {
-        status.textContent = "No users match your filter.";
-    } else {
-        status.textContent = "No users loaded.";
+            `Showing all ${users.length} users.`;
+        return;
     }
-});
 
+    if (filteredUsers.length === 0) {
+        status.textContent = "No users match your filter.";
+        return;
+    }
+
+    status.textContent =
+        `Showing ${filteredUsers.length} matching user${
+            filteredUsers.length === 1 ? "" : "s"
+        }.`;
+}
+
+
+/**
+ * Load users when the button is clicked.
+ */
 loadUsersButton.addEventListener("click", loadUsers);
+
+
+/**
+ * Filter the existing users whenever the input changes.
+ */
+filterInput.addEventListener("input", filterUsers);

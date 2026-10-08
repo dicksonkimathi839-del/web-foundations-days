@@ -1,13 +1,24 @@
-# Library Books REST API
+# Library Books REST API Design
 
-This document describes a RESTful API design for managing books in a library system. The main resource is **books**.
+This document defines a RESTful API for managing books in a library system.
+
+The main resource is **books**.
+
+---
 
 ## 1. List All Books
 
-- **Method:** GET
-- **Path:** `/books`
-- **Description:** Returns a list of all books in the library.
-- **Success status:** `200 OK`
+### Endpoint
+
+`GET /books`
+
+### Description
+
+Returns a list of all books available in the library.
+
+### Success Status
+
+`200 OK`
 
 ### Example Request
 

@@ -3,34 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>User Directory</title>
+
     <script src="users.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>User Directory</h1>
-        <p>Load and search users from a REST API.</p>
+        <p>Load users from a REST API and filter them by name.</p>
     </header>
 
     <main>
         <section aria-labelledby="users-heading">
             <h2 id="users-heading">Users</h2>
 
-            <button id="load-users" type="button">Load Users</button>
+            <button id="load-users" type="button">
+                Load Users
+            </button>
 
             <div>
-                <label for="filter-input">Filter users by name:</label>
+                <label for="filter-input">
+                    Filter users by name:
+                </label>
+
                 <input
                     type="text"
                     id="filter-input"
-                    placeholder="Type a name..."
+                    name="filter"
+                    placeholder="Enter a name..."
                     autocomplete="off"
+                    disabled
                 >
             </div>
 
-            <p id="status" role="status">Click "Load Users" to begin.</p>
+            <p id="status" role="status" aria-live="polite">
+                Click "Load Users" to load users from the API.
+            </p>
 
-            <ul id="users-list"></ul>
+            <ul id="users-list" aria-live="polite"></ul>
         </section>
     </main>
 </body>
