@@ -43,39 +43,42 @@ INSERT INTO enrolments (enrolment_id, student_id, course_id, grade) VALUES
 (4, 2, 3, 'A'),
 (5, 3, 2, 'A');
 
--- 1. All courses for one student
+CREATE INDEX idx_enrolments_course_id
+ON enrolments(course_id);
+
+-- Query 1: Find all courses taken by one student.
 SELECT s.name AS student_name, c.course_name
 FROM students s
 JOIN enrolments e ON s.student_id = e.student_id
 JOIN courses c ON e.course_id = c.course_id
 WHERE s.name = 'Alice Wanjiku';
 
--- 2. All students on one course
+-- Query 2: Find all students enrolled in one course.
 SELECT c.course_name, s.name AS student_name
 FROM courses c
 JOIN enrolments e ON c.course_id = e.course_id
 JOIN students s ON e.student_id = s.student_id
 WHERE c.course_name = 'Database Systems';
 
--- 3. Number of students per course
+-- Query 3: Count students enrolled in each course.
 SELECT c.course_name, COUNT(e.student_id) AS student_count
 FROM courses c
 LEFT JOIN enrolments e ON c.course_id = e.course_id
 GROUP BY c.course_id, c.course_name
 ORDER BY c.course_id;
 
--- 4. Students who have no enrolments
+-- Query 4: Find students with no enrolments.
 SELECT s.student_id, s.name, s.email
 FROM students s
 LEFT JOIN enrolments e ON s.student_id = e.student_id
 WHERE e.enrolment_id IS NULL;
 
--- 5. Update one enrolment's grade
+-- Query 5: Update a student's grade.
 UPDATE enrolments
 SET grade = 'A+'
 WHERE enrolment_id = 3;
 
--- Verify the updated grade
+-- Verify the updated grade.
 SELECT s.name AS student_name, c.course_name, e.grade
 FROM enrolments e
 JOIN students s ON e.student_id = s.student_id
