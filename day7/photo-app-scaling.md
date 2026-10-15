@@ -1,8 +1,8 @@
-\# Day 7 Assignment: SnapShare Photo App Scaling Plan
+# Day 7 Assignment: SnapShare Photo App Scaling Plan
 
 
 
-\## 1. Introduction
+## 1. Introduction
 
 
 
@@ -14,7 +14,7 @@ This scaling plan proposes an architecture that separates application processing
 
 
 
-\## 2. Assumptions and Workload Estimates
+## 2. Assumptions and Workload Estimates
 
 
 
@@ -22,29 +22,29 @@ The following assumptions are used to estimate SnapShare's workload:
 
 
 
-\- The application has 10,000,000 registered users.
+- The application has 10,000,000 registered users.
 
-\- 10% of registered users are active each day.
+- 10% of registered users are active each day.
 
-\- Each daily active user uploads one photo per day.
+- Each daily active user uploads one photo per day.
 
-\- Each daily active user views 50 feed pages per day.
+- Each daily active user views 50 feed pages per day.
 
-\- Each original photo has an average size of 2 MB.
+- Each original photo has an average size of 2 MB.
 
-\- Each original photo produces one thumbnail of 50 KB.
+- Each original photo produces one thumbnail of 50 KB.
 
-\- One day contains 86,400 seconds, and one year contains 365 days.
+- One day contains 86,400 seconds, and one year contains 365 days.
 
-\- Storage calculations use decimal units: 1 MB = 1,000 KB, 1 GB = 1,000 MB, and 1 TB = 1,000 GB.
+- Storage calculations use decimal units: 1 MB = 1,000 KB, 1 GB = 1,000 MB, and 1 TB = 1,000 GB.
 
-\- The average workload is distributed across the entire day; peak feed traffic is estimated at five times the average rate.
+- The average workload is distributed across the entire day; peak feed traffic is estimated at five times the average rate.
 
-\- The estimates exclude retries, deleted photos, database records, backups, storage replication, and additional growth beyond the stated user activity.
+- The estimates exclude retries, deleted photos, database records, backups, storage replication, and additional growth beyond the stated user activity.
 
 
 
-\### 2.1 Daily Active Users
+### 2.1 Daily Active Users
 
 
 
@@ -52,7 +52,7 @@ Daily active users (DAU) are the registered users who use the application on a p
 
 
 
-\*\*Formula:\*\*
+**Formula:**
 
 
 
@@ -60,7 +60,7 @@ Daily Active Users = Registered Users × Daily Activity Rate
 
 
 
-\*\*Calculation:\*\*
+**Calculation:**
 
 
 
@@ -68,11 +68,11 @@ Daily Active Users = Registered Users × Daily Activity Rate
 
 
 
-Therefore, SnapShare is expected to have \*\*1,000,000 daily active users\*\*.
+Therefore, SnapShare is expected to have **1,000,000 daily active users**.
 
 
 
-\### 2.2 Photo Uploads Per Second
+### 2.2 Photo Uploads Per Second
 
 
 
@@ -96,11 +96,11 @@ Average uploads per second = Daily uploads ÷ Seconds per day
 
 
 
-Therefore, SnapShare must support an average of approximately \*\*12 photo uploads per second\*\*.
+Therefore, SnapShare must support an average of approximately **12 photo uploads per second**.
 
 
 
-\### 2.3 Feed Views Per Second
+### 2.3 Feed Views Per Second
 
 
 
@@ -124,7 +124,7 @@ Average feed views per second:
 
 
 
-Therefore, the average feed workload is approximately \*\*579 feed views per second\*\*.
+Therefore, the average feed workload is approximately **579 feed views per second**.
 
 
 
@@ -140,7 +140,7 @@ Peak feed views per second = 578.70 × 5
 
 
 
-Therefore, SnapShare should plan for approximately \*\*2,894 feed views per second at peak traffic\*\*.
+Therefore, SnapShare should plan for approximately **2,894 feed views per second at peak traffic**.
 
 
 
@@ -148,7 +148,7 @@ These are planning estimates rather than guaranteed capacity limits; actual traf
 
 
 
-\### 2.4 Photo Storage Per Year
+### 2.4 Photo Storage Per Year
 
 
 
@@ -156,7 +156,7 @@ Each original photo requires 2 MB of storage, while each thumbnail requires 50 K
 
 
 
-\*\*Original photo storage per day:\*\*
+**Original photo storage per day:**
 
 
 
@@ -168,7 +168,7 @@ Each original photo requires 2 MB of storage, while each thumbnail requires 50 K
 
 
 
-\*\*Original photo storage per year:\*\*
+**Original photo storage per year:**
 
 
 
@@ -176,7 +176,7 @@ Each original photo requires 2 MB of storage, while each thumbnail requires 50 K
 
 
 
-\*\*Thumbnail storage per day:\*\*
+**Thumbnail storage per day:**
 
 
 
@@ -192,7 +192,7 @@ Each original photo requires 2 MB of storage, while each thumbnail requires 50 K
 
 
 
-\*\*Thumbnail storage per year:\*\*
+**Thumbnail storage per year:**
 
 
 
@@ -200,7 +200,7 @@ Each original photo requires 2 MB of storage, while each thumbnail requires 50 K
 
 
 
-\*\*Total annual image storage:\*\*
+**Total annual image storage:**
 
 
 
@@ -208,7 +208,7 @@ Each original photo requires 2 MB of storage, while each thumbnail requires 50 K
 
 
 
-Therefore, SnapShare needs approximately \*\*730 TB per year for original photos\*\* and \*\*18.25 TB per year for thumbnails\*\*, giving a combined annual image-storage requirement of approximately \*\*748.25 TB\*\*.
+Therefore, SnapShare needs approximately **730 TB per year for original photos** and **18.25 TB per year for thumbnails**, giving a combined annual image-storage requirement of approximately **748.25 TB**.
 
 
 
@@ -216,7 +216,7 @@ This estimate assumes that all uploaded photos and generated thumbnails are reta
 
 
 
-\### 2.5 Summary of Workload Estimates
+### 2.5 Summary of Workload Estimates
 
 
 
@@ -246,11 +246,11 @@ This estimate assumes that all uploaded photos and generated thumbnails are reta
 
 
 
-\## 3. Is SnapShare Read-Heavy or Write-Heavy?
+## 3. Is SnapShare Read-Heavy or Write-Heavy?
 
 
 
-SnapShare is a \*\*read-heavy system\*\* because users view feed pages much more frequently than they upload photos.
+SnapShare is a **read-heavy system** because users view feed pages much more frequently than they upload photos.
 
 
 
@@ -266,17 +266,17 @@ The architecture should therefore:
 
 
 
-\- Use a Content Delivery Network (CDN) to deliver cached images and thumbnails close to users.
+- Use a Content Delivery Network (CDN) to deliver cached images and thumbnails close to users.
 
-\- Use Redis or another caching system to store frequently requested feed data.
+- Use Redis or another caching system to store frequently requested feed data.
 
-\- Use a database read replica to handle read queries without placing all read traffic on the primary database.
+- Use a database read replica to handle read queries without placing all read traffic on the primary database.
 
-\- Store photo files in object storage rather than inside database records.
+- Store photo files in object storage rather than inside database records.
 
-\- Use background workers to generate thumbnails without delaying the upload response.
+- Use background workers to generate thumbnails without delaying the upload response.
 
-\- Scale application servers horizontally to handle changes in traffic.
+- Scale application servers horizontally to handle changes in traffic.
 
 
 
@@ -284,11 +284,11 @@ These measures reduce the load on the primary database and application servers w
 
 
 
-\## 4. Why Photos Should Not Be Stored Inside the Database
+## 4. Why Photos Should Not Be Stored Inside the Database
 
 
 
-Original photos and thumbnails should be stored in \*\*object storage\*\*, such as Amazon S3 or an equivalent service, rather than directly inside relational database tables.
+Original photos and thumbnails should be stored in **object storage**, such as Amazon S3 or an equivalent service, rather than directly inside relational database tables.
 
 
 
@@ -304,17 +304,17 @@ The database should instead store photo metadata, such as:
 
 
 
-\- Photo ID.
+- Photo ID.
 
-\- User ID of the uploader.
+- User ID of the uploader.
 
-\- Object-storage key or URL.
+- Object-storage key or URL.
 
-\- Caption and upload timestamp.
+- Caption and upload timestamp.
 
-\- Thumbnail object key.
+- Thumbnail object key.
 
-\- Visibility and other relevant information.
+- Visibility and other relevant information.
 
 
 
@@ -322,7 +322,7 @@ This separation allows the database to manage searchable information while objec
 
 
 
-\## 5. SnapShare Architecture Diagram
+## 5. SnapShare Architecture Diagram
 
 
 
@@ -332,133 +332,133 @@ The following text diagram illustrates the proposed architecture and the relatio
 
 ```text
 
-&#x20;                        +----------------------+
+                         +----------------------+
 
-&#x20;                        |    Mobile / Web      |
+                         |    Mobile / Web      |
 
-&#x20;                        |       Clients        |
+                         |       Clients        |
 
-&#x20;                        +----------+-----------+
+                         +----------+-----------+
 
-&#x20;                                   |
+                                    |
 
-&#x20;                    +--------------+--------------+
+                     +--------------+--------------+
 
-&#x20;                    |                             |
+                     |                             |
 
-&#x20;                    v                             v
+                     v                             v
 
-&#x20;          +-------------------+        +----------------------+
+           +-------------------+        +----------------------+
 
-&#x20;          |       CDN         |        |   Load Balancer      |
+           |       CDN         |        |   Load Balancer      |
 
-&#x20;          | Cached Images,    |        | Distributes Requests |
+           | Cached Images,    |        | Distributes Requests |
 
-&#x20;          | Thumbnails, CSS   |        +----------+-----------+
+           | Thumbnails, CSS   |        +----------+-----------+
 
-&#x20;          +---------+---------+                   |
+           +---------+---------+                   |
 
-&#x20;                    |                             v
+                     |                             v
 
-&#x20;                    |                  +----------------------+
+                     |                  +----------------------+
 
-&#x20;                    |                  |    App Servers       |
+                     |                  |    App Servers       |
 
-&#x20;                    |                  |  (Stateless APIs)    |
+                     |                  |  (Stateless APIs)    |
 
-&#x20;                    |                  +--+--------+--------+-+
+                     |                  +--+--------+--------+-+
 
-&#x20;                    |                     |        |        |
+                     |                     |        |        |
 
-&#x20;                    |                     v        v        v
+                     |                     v        v        v
 
-&#x20;                    |               +---------+ +------+ +----------+
+                     |               +---------+ +------+ +----------+
 
-&#x20;                    |               |  Redis  | |Primary| |  Queue   |
+                     |               |  Redis  | |Primary| |  Queue   |
 
-&#x20;                    |               |  Cache  | |  DB   | | Thumbnail|
+                     |               |  Cache  | |  DB   | | Thumbnail|
 
-&#x20;                    |               +---------+ +--+---+ |   Jobs   |
+                     |               +---------+ +--+---+ |   Jobs   |
 
-&#x20;                    |                               |     +-----+----+
+                     |                               |     +-----+----+
 
-&#x20;                    |                               |           |
+                     |                               |           |
 
-&#x20;                    |                               v           v
+                     |                               v           v
 
-&#x20;                    |                         +----------+ +----------+
+                     |                         +----------+ +----------+
 
-&#x20;                    |                         | Read     | | Thumbnail|
+                     |                         | Read     | | Thumbnail|
 
-&#x20;                    |                         | Replica  | |  Worker  |
+                     |                         | Replica  | |  Worker  |
 
-&#x20;                    |                         +----------+ +-----+----+
+                     |                         +----------+ +-----+----+
 
-&#x20;                    |                                               |
+                     |                                               |
 
-&#x20;                    v                                               v
+                     v                                               v
 
-&#x20;          +----------------------+                       +----------------------+
+           +----------------------+                       +----------------------+
 
-&#x20;          |    Object Storage    |<----------------------|    Object Storage    |
+           |    Object Storage    |<----------------------|    Object Storage    |
 
-&#x20;          | Original Photos      |                       | Thumbnail Files     |
+           | Original Photos      |                       | Thumbnail Files     |
 
-&#x20;          +----------------------+                       +----------------------+
+           +----------------------+                       +----------------------+
 
 ```
 
 
 
-\*\*Diagram note:\*\* Both original photos and thumbnails can be stored in the same object-storage service using separate keys or prefixes. They are shown separately to make their roles clear. The CDN retrieves cached or uncached image files from object storage, while the application servers manage metadata and application logic. The thumbnail worker writes generated thumbnails to object storage and records their locations in the database.
+**Diagram note:** Both original photos and thumbnails can be stored in the same object-storage service using separate keys or prefixes. They are shown separately to make their roles clear. The CDN retrieves cached or uncached image files from object storage, while the application servers manage metadata and application logic. The thumbnail worker writes generated thumbnails to object storage and records their locations in the database.
 
 
 
-\## 6. Explanation of Each Architecture Component
+## 6. Explanation of Each Architecture Component
 
 
 
-1\. \*\*Mobile and Web Clients:\*\* These provide the interface through which users upload photos, follow other users, and view their feeds.
+1. **Mobile and Web Clients:** These provide the interface through which users upload photos, follow other users, and view their feeds.
 
 
 
-2\. \*\*Content Delivery Network (CDN):\*\* The CDN caches and serves photos, thumbnails, and other static files from geographically distributed locations to reduce latency and origin-server traffic.
+2. **Content Delivery Network (CDN):** The CDN caches and serves photos, thumbnails, and other static files from geographically distributed locations to reduce latency and origin-server traffic.
 
 
 
-3\. \*\*Load Balancer:\*\* The load balancer distributes incoming API requests across available application servers to prevent one server from becoming overloaded.
+3. **Load Balancer:** The load balancer distributes incoming API requests across available application servers to prevent one server from becoming overloaded.
 
 
 
-4\. \*\*Stateless Application Servers:\*\* These process authentication, uploads, feed requests, and business logic while allowing requests to be handled by any healthy server.
+4. **Stateless Application Servers:** These process authentication, uploads, feed requests, and business logic while allowing requests to be handled by any healthy server.
 
 
 
-5\. \*\*Redis Cache:\*\* Redis stores frequently accessed feed data and metadata so that repeated reads can be served quickly without querying the database every time.
+5. **Redis Cache:** Redis stores frequently accessed feed data and metadata so that repeated reads can be served quickly without querying the database every time.
 
 
 
-6\. \*\*Primary Database:\*\* The primary database stores authoritative application records, including users, follows, photo metadata, captions, and other information that must be managed consistently.
+6. **Primary Database:** The primary database stores authoritative application records, including users, follows, photo metadata, captions, and other information that must be managed consistently.
 
 
 
-7\. \*\*Database Read Replica:\*\* The read replica handles suitable read queries, such as feed metadata retrieval, to reduce read pressure on the primary database.
+7. **Database Read Replica:** The read replica handles suitable read queries, such as feed metadata retrieval, to reduce read pressure on the primary database.
 
 
 
-8\. \*\*Object Storage:\*\* Object storage holds original photos and generated thumbnails separately from the database, providing scalable storage for large image files.
+8. **Object Storage:** Object storage holds original photos and generated thumbnails separately from the database, providing scalable storage for large image files.
 
 
 
-9\. \*\*Message Queue:\*\* The queue holds thumbnail-generation jobs until workers can process them, allowing photo uploads to complete without waiting for thumbnail generation.
+9. **Message Queue:** The queue holds thumbnail-generation jobs until workers can process them, allowing photo uploads to complete without waiting for thumbnail generation.
 
 
 
-10\. \*\*Thumbnail Worker:\*\* The worker retrieves queued jobs, reads original photos, generates smaller thumbnail images, stores the results in object storage, and updates the relevant metadata.
+10. **Thumbnail Worker:** The worker retrieves queued jobs, reads original photos, generates smaller thumbnail images, stores the results in object storage, and updates the relevant metadata.
 
 
 
-\## 7. Step-by-Step Photo Upload Flow
+## 7. Step-by-Step Photo Upload Flow
 
 
 
@@ -466,51 +466,51 @@ The following steps describe how SnapShare processes a photo upload.
 
 
 
-1\. \*\*User selects a photo:\*\* The user chooses an image through the mobile or web application and submits the upload request.
+1. **User selects a photo:** The user chooses an image through the mobile or web application and submits the upload request.
 
 
 
-2\. \*\*Request reaches the application:\*\* The request passes through the load balancer to an available application server, which authenticates the user and validates the request.
+2. **Request reaches the application:** The request passes through the load balancer to an available application server, which authenticates the user and validates the request.
 
 
 
-3\. \*\*Upload destination is prepared:\*\* The application generates a unique photo ID and an object-storage key. Where supported, it provides the client with a short-lived, authorized upload URL so the photo can be uploaded directly to object storage.
+3. **Upload destination is prepared:** The application generates a unique photo ID and an object-storage key. Where supported, it provides the client with a short-lived, authorized upload URL so the photo can be uploaded directly to object storage.
 
 
 
-4\. \*\*Original photo is uploaded:\*\* The client uploads the original image to object storage using the authorized URL. The application verifies that the upload completed successfully before marking the photo as ready.
+4. **Original photo is uploaded:** The client uploads the original image to object storage using the authorized URL. The application verifies that the upload completed successfully before marking the photo as ready.
 
 
 
-5\. \*\*Metadata is saved:\*\* The application records the photo ID, uploader ID, storage key, caption, timestamp, and processing status in the primary database.
+5. **Metadata is saved:** The application records the photo ID, uploader ID, storage key, caption, timestamp, and processing status in the primary database.
 
 
 
-6\. \*\*Thumbnail job is queued:\*\* After the original image is available, the application places a thumbnail-generation job on the message queue.
+6. **Thumbnail job is queued:** After the original image is available, the application places a thumbnail-generation job on the message queue.
 
 
 
-7\. \*\*Upload response is returned:\*\* The application confirms that the original photo has been uploaded and accepted for processing. The thumbnail may still be pending, so the user does not need to wait for the worker to finish.
+7. **Upload response is returned:** The application confirms that the original photo has been uploaded and accepted for processing. The thumbnail may still be pending, so the user does not need to wait for the worker to finish.
 
 
 
-8\. \*\*Worker processes the job:\*\* A background worker retrieves the queued job and reads the original image from object storage.
+8. **Worker processes the job:** A background worker retrieves the queued job and reads the original image from object storage.
 
 
 
-9\. \*\*Thumbnail is generated:\*\* The worker resizes and compresses the image to create a thumbnail with an average target size of 50 KB, while maintaining suitable visual quality.
+9. **Thumbnail is generated:** The worker resizes and compresses the image to create a thumbnail with an average target size of 50 KB, while maintaining suitable visual quality.
 
 
 
-10\. \*\*Thumbnail is stored:\*\* The worker saves the thumbnail in object storage using its own key and updates the database with the thumbnail location and processing status.
+10. **Thumbnail is stored:** The worker saves the thumbnail in object storage using its own key and updates the database with the thumbnail location and processing status.
 
 
 
-11\. \*\*Feed and cache are updated:\*\* The application makes the photo metadata available to the appropriate feeds and invalidates or updates affected cache entries so users can see fresh information.
+11. **Feed and cache are updated:** The application makes the photo metadata available to the appropriate feeds and invalidates or updates affected cache entries so users can see fresh information.
 
 
 
-12\. \*\*Photo is delivered to viewers:\*\* When followers request their feeds, the application retrieves feed metadata from the cache or database, and the CDN serves the original or thumbnail image as needed.
+12. **Photo is delivered to viewers:** When followers request their feeds, the application retrieves feed metadata from the cache or database, and the CDN serves the original or thumbnail image as needed.
 
 
 
@@ -518,11 +518,11 @@ This asynchronous workflow improves upload responsiveness because thumbnail gene
 
 
 
-\## 8. Scaling Trade-Offs
+## 8. Scaling Trade-Offs
 
 
 
-\### 8.1 Caching Versus Data Freshness
+### 8.1 Caching Versus Data Freshness
 
 
 
@@ -534,7 +534,7 @@ The system must invalidate or update affected cache entries, which introduces ad
 
 
 
-\### 8.2 Database Read Replicas Versus Consistency
+### 8.2 Database Read Replicas Versus Consistency
 
 
 
@@ -546,7 +546,7 @@ The system can use the primary database for operations requiring the latest conf
 
 
 
-\### 8.3 Asynchronous Processing Versus Immediate Availability
+### 8.3 Asynchronous Processing Versus Immediate Availability
 
 
 
@@ -558,7 +558,7 @@ The system should implement retries, monitoring, and dead-letter handling for re
 
 
 
-\### 8.4 Object Storage and CDN Versus Cost and Complexity
+### 8.4 Object Storage and CDN Versus Cost and Complexity
 
 
 
@@ -570,7 +570,7 @@ The system should use appropriate image sizes, cache-control settings, lifecycle
 
 
 
-\### 8.5 Horizontal Scaling Versus Operational Complexity
+### 8.5 Horizontal Scaling Versus Operational Complexity
 
 
 
@@ -582,7 +582,7 @@ Automated health checks, centralized logging, metrics, and automated deployment 
 
 
 
-\## 9. Conclusion
+## 9. Conclusion
 
 
 
